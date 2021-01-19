@@ -31,7 +31,8 @@ void Client::buttonConnectPressed(){
 }
 
 void Client::buttonSendpressed(){
-    //QString textStr = ui->lineSend->text();
-    _socket.write(QByteArray("ok !\n"));
+    QString textStr = ui->lineSend->text();
+    QByteArray bytes = textStr.toUtf8();
+    _socket.write(bytes);
 }
 
