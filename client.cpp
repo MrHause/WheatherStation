@@ -22,7 +22,9 @@ Client::~Client()
 
 void Client::onReadyRead()
 {
-    QByteArray datas = _socket.readAll();
+    QByteArray datas = _socket.readAll();  
+    QString msg(datas);
+    ui->textReceive->setText(msg);
     qDebug() << datas;
 }
 
