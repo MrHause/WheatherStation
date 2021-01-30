@@ -18,11 +18,14 @@ public:
 
 private slots:
     void onReadyRead();
+    void client_connected();
     void buttonConnectPressed();
     void buttonSendpressed();
+    void buttonClearpressed();
 
 private:
     Ui::Client *ui;
     QTcpSocket _socket;
+    bool connected;
 };
 #endif // CLIENT_H
