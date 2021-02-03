@@ -31,6 +31,7 @@ void Client::onReadyRead()
     QByteArray datas = _socket.readAll();  
     QString msg(datas);
     ui->textReceive->append(msg);
+    client_parseResponse(msg);
     qDebug() << datas;
 }
 
@@ -64,5 +65,23 @@ void Client::buttonSendpressed(){
     QString textStr = ui->lineSend->text();
     QByteArray bytes = textStr.toUtf8();
     _socket.write(bytes);
+}
+
+void Client::client_parseResponse(QString response){
+    qsizetype idx = response.indexOf(":");
+    QString command_str = response.left(idx);
+    int command = command_str.toInt();
+    switch(command){
+    case GET_WEATHER_PARAM:{
+        qsizetype idx2 = response.indexOf(":",idx+1);
+        qsizetype idx3 = response.indexOf(":",idx2+1);
+        QString temperature = response.mid(idx+1, idx2-idx-1);
+        QString humidity = response.mid(idx2+1, idx3-idx2-1);
+        QString pressure = response.mid(idx3+1, response.length());
+        break;
+    }
+    default:
+        break;
+    }
 }
 
