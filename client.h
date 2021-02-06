@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTcpSocket>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Client; }
@@ -22,11 +23,13 @@ private slots:
     void buttonConnectPressed();
     void buttonSendpressed();
     void buttonClearpressed();
+    void client_sendCallback();
 
 private:
     Ui::Client *ui;
     QTcpSocket _socket;
     bool connected;
+    QTimer *timer1;
 
     typedef enum{
         LED2_ON,
@@ -46,6 +49,7 @@ private:
     //MC_Commands command;
 
     void client_parseResponse(QString response);
+    void client_displayWheather(QString temperature,QString humidity, QString pressure);
 
 };
 #endif // CLIENT_H
